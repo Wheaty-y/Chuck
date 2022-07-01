@@ -35,7 +35,4 @@ class Chuck(GoslingAgent):
             if agent.me.boost > 30:
                 agent.push(short_shot(agent.foe_goal.location))
             else:
-                agent.push(goto_boost(closest_boost, agent.ball.location))
-
-
-
+                agent.push(goto_boost(closest_boost, agent.ball.location))      

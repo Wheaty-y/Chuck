@@ -38,6 +38,4 @@ class Chuck(GoslingAgent):
                 agent.push(goto_boost(closest_boost, agent.ball.location))
 
 
-#test test
-#test2
-# maybe 3
+

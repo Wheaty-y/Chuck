@@ -394,3 +394,24 @@ class short_shot():
         if abs(angles[1]) < 0.05 and (eta < 0.45 or distance < 150):
             agent.pop()
             agent.push(flip(agent.me.local(car_to_ball)))
+
+class rotate_back():
+    def __init__(self, agent):
+        self.agent = agent
+        self.backpost_position = Vector3(agent.friend_goal.location[0] + (sign(agent.ball.location[0]) * 950), agent.friend_goal.location[1], agent.friend_goal.location[2])
+        
+    def rotate(self, agent):
+        valid_boosts = [boost for boost in agent.boosts if boost.location[1] in range(agent.me.location[1],[self.backpost_position[1]]) and boost.active]
+        closest_boost = valid_boosts[0]
+        closest_dist = (valid_boosts[0].location - agent.me.location).magnitude()
+        for i in valid_boosts:
+            i_dist = (i.location - agent.me.location).magnitude() #Finding distance to closest boost
+            if i_dist<closest_dist:
+                closest_boost = i 
+                closest_dist = i_dist
+
+        if(agent.me.boost < 30):
+            agent.push(goto_boost(closest_boost))
+        else:
+            agent.push(goto(self.backpost_position))
+            agent.pop()
